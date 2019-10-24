@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>RegEx Notes</title>
+        <style>
+        html, body {
+            
+              line-height: 1.8em;
+              
+        } img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+              display: none; 
+            
+        } header {
+            background-color: green;
+            color: white;
+            width: 20vw;
+            
+        }ul{
+           width: 60vw;
+           position: relative;
+           left: 50%;
+           margin: 20px;
+           margin-left: -30vw;
+           font-size: 20px;
+           font-weight: 300; 
+        } li {
+            margin: 30px;
+            
+        } header {
+            text-align: center;
+        } #flex i {
+            color: red;
+        } #grid i {
+            color: green;
+        } li li {
+            margin: 15px;
+        } b {
+            background-color: #e0e2e5;
+            color: #d80808;
+            font-weight: 200;
+            padding: 2px;
+        }
+              
+      </style>
+    </head>
+    <body>
+        <center><header><h1>REGEX NOTES</h1></header></center>
+       
+        <ul>
+           <li><b>/bro/</b> matches literally with the phrase "bro", it will not match with "BRO" or "brO" </li> 
+           <li><b>/bro/.test("brother")</b> returns true, <b>/bro/.test("brither")</b> returns false</li>
+           <li>you can search for multiple strings using the alternation or OR operator: | e.g. <b>/yes|no|maybe/</b> will match with "yes", "no" or "maybe"</li>
+           <li>append the <b>i</b> case-insenitive "flag" to the end of the RegEx to ignore case: /bro/i matches with "bro", "BRO", "brO"...</li>
+           <li><b>"brother".match(/bro/)</b> returns ["bro"]</li>
+           <li>append the <b>g</b> global flag to extract a pattern more than once. <b>"Repeat, Repeat, Repeat".match(/repeat/ig)</b> returns <b>["Repeat", "Repeat", "Repeat"]</b></li>
+           <li>The wildcard character <b>.</b> matches with any one character. <b>/hu./</b> matches with "hub", "hum", "hut"... etc</li>
+           <li> you can match a single character with any of multiple possible characters (i.e. a <b>character set</b>) by putting them in <b>[</b> and <b>]</b> e.g. <b>/t[oia]p/</b> matches with "top", "tip" and "tap" but not "tep", "tbp" etc</li>
+           <li>you can match a range of characters by using a hyphen e.g. <b>/[a-e]/</b> matches with all lowercase letters between a and e</li>
+           <li><b>/[1-5]/</b> matches all numbers between 1 to 5</li>
+           <li><b>/[a-z0-9]/ig</b> matches all numbers and letters</li>
+           <li>to create a set of characters you do NOT want to match (=<b>negated character set</b>) use <b>^</b>. <b>/[^aeiou]/ig</b> matches any character that isn't a vowel. YOU MUST USE THE SYMBOL INSIDE THE CHARACTER SET FOR IT TO BE A NEGATED CHARACTER SET.</li>
+           <li><b>+</b> matches one or more of the same characters consecutively. <b>/a+/</b> matches "a" in "abc" and "aa" in "aabc" </li>
+           <li><b>*</b> matches zero or more of the same characters consecutively. <b>/go*/</b> matches "goo" in "goober" and "g" in "gut"</li>
+           <li>Regular expressions are by default <b>greedy</b> - they find the longest sub-string possible. You can switch your RegEx to <b>lazy</b> by adding <b>?</b> after <b>+</b> or <b>*</b>. <b>/t[a-z]*i/</b> to "titanic" returns "titani". <b>/t[a-z]*?i/</b> returns "ti"</li>
+           <li>Use a caret <b>^</b> outside a character set to search for a pattern at the beginning of a string. <b>/^You/.test("You are a piece of work") </b> returns true, /^I/.test("I am a piece of work") returns false</li>
+           <li>Use a dollar sign <b>$</b> at the end of the RegEx to search for a pattern at the end of a string. <b>/work$/.test("You are a piece of work")</b> returns true</li>
+           <li><b>\w</b> is equivalent to the character set <b>[a-zA-Z0-9_]</b> (i.e. matches upper and lowercase letters, numbers and <b>_</b>). Called a "shorthand character class".</li>
+           <li><b>\W</b> is the opposite of <b>\w</b> i.e. equivalent to <b>[^a-zA-Z0-9_]</b>. It will match with anything that isn't a letter or a number</li>
+           <li><b>\d</b> is equal to <b>[0-9]</b> and will match with all numbers</li>
+           <li><b>\D</b> is the opposite of <b>\d</b> i.e. equivalent to <b>[^0-9]</b>. It will match with any non-digit character</li>
+           <li><b>\s</b> matches with all whitespace, return, tab, new line ( = <b>[ \r\t\f\n\v]</b>)</li>
+           <li><b>\S</b> is the opposite of <b>\s</b> i.e. will match any non-whitespace character ( = <b>[^ \r\t\f\n\v]</b>)</li>
+           <li><b>*</b> matches with zero or more of the same character, <b>+</b> matches with one ore more. You can use curly brackets <b>{</b> and <b>}</b> to specify the range you want. <b>/a{2,5}h/</b> matches with "aah", "aaah", "aaaah" and "aaaaah" but not "ah" or "aaaaaah". You can specify just a lower limit by leaving the upper limit blank <b>/a{2,}h/</b> or a specific number of repeats by using just one number <b>/a{3}h/</b></li>
+           <li>Use <b>?</b> to make a character optional e.g. <b>/favou?rite/</b></li>
+           <li>"Lookaheads" tell the computer to look ahead through the string and check for a certain pattern</li>
+           <li><b>(?=...)</b> will look for <b>...</b> The RegEx will not find a match if <b>...</b> is not in the string (note, the <b>...</b> will not actually be in the match). e.g. /g(?=oober)/ will match "g" in "goober", but will return null to "great" or "sea gull". This is a "positive lookahead"</li>
+           <li><b>(?!...)</b> will look for <b>...</b> The RegEx will only find a match if <b>...</b> is not in the string e.g. /g(?!oober)/ will return null to "goober", but will return "g" to "great" or "sea gull". This is a "negative lookahead"</li>
+           <li><b>/(?=\w{5,})(?=\D*\d{2,})/.test(password)</b> will return true for any password that has at least 5 characters (at least one being a letter) and 2 consecutive digits</li>
+           <li>you can group a pattern together with parentheses <b>(...)</b>. For example, <b>/(go)+/</b> matches any string with go one or more times "gogogogo...". These are called "capture groups" because they place the group in a separate element in the resulting array. </li>
+           <li>Remember, use <b>string.replace(/RegEx/, "whatever you want to replace it with")</b>. You can also access capture groups using <b>$</b>, e.g. <b>"Code Camp".replace(/(\w+)\s(\w+)/, '$2 $1')</b> returns "Camp Code"</li>
+        </ul>
+   </body>
+   </html>
